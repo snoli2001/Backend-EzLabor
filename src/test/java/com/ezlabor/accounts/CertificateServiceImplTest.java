@@ -76,9 +76,9 @@ public class CertificateServiceImplTest {
         certificate2.setKnowledge(knowledge);
         certificate2.setCertificate_url("http://esteesuncertificado.com");
         certificateList.add(certificate2);
-        when(certificateRepository.findByKnowledgeId(id)).thenReturn(certificateList);
+        when(certificateRepository.findByFreelancerIdAndKnowledgeId(id,id)).thenReturn(certificateList);
         //Act
-        List<Certificate> foundCertificates = certificateService.getAllCertificatesByKnowledgeId(id);
+        List<Certificate> foundCertificates = certificateService.getAllCertificatesByFreelancerIdAndKnowledgeId(id, id);
         //Assert
         assertThat(foundCertificates.get(0).getKnowledge().getId()).isEqualTo(id);
         assertThat(foundCertificates.size()).isEqualTo(2);
