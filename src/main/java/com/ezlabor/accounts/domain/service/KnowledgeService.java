@@ -1,6 +1,7 @@
 package com.ezlabor.accounts.domain.service;
 
 import com.ezlabor.accounts.domain.model.background.Knowledge;
+import com.ezlabor.accounts.resource.knowledge.SaveKnowledgeResource;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

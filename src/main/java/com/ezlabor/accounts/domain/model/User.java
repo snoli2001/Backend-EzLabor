@@ -5,8 +5,10 @@ import com.ezlabor.common.model.AuditModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
