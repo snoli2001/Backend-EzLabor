@@ -1,4 +1,4 @@
-package com.ezlabor.accounts;
+package com.ezlabor.accounts.service;
 
 import com.ezlabor.accounts.domain.model.Freelancer;
 import com.ezlabor.accounts.domain.repository.FreelancerRepository;

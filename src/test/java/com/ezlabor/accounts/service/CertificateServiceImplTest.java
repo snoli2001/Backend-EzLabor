@@ -1,4 +1,4 @@
-package com.ezlabor.accounts;
+package com.ezlabor.accounts.service;
 
 import com.ezlabor.accounts.domain.model.background.Certificate;
 import com.ezlabor.accounts.domain.model.background.Knowledge;
