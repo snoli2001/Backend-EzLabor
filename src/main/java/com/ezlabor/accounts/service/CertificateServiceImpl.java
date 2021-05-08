@@ -8,18 +8,16 @@ import com.ezlabor.common.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CertificateServiceImpl implements CertificateService {
-    private final CertificateRepository certificateRepository;
-    private final KnowledgeRepository knowledgeRepository;
-
     @Autowired
-    public CertificateServiceImpl(CertificateRepository certificateRepository, KnowledgeRepository knowledgeRepository) {
-        this.certificateRepository = certificateRepository;
-        this.knowledgeRepository = knowledgeRepository;
-    }
+    private CertificateRepository certificateRepository;
+    @Autowired
+    private KnowledgeRepository knowledgeRepository;
 
     @Override
     public List<Certificate> getAllCertificatesByKnowledgeId(Long knowledgeId, Pageable pageable) {
