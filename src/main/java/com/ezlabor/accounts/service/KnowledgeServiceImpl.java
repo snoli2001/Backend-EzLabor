@@ -7,9 +7,10 @@ import com.ezlabor.accounts.domain.service.KnowledgeService;
 import com.ezlabor.common.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Autowired
@@ -41,7 +42,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Override
     public Knowledge updateKnowledge(Long freelancerId, Long knowledgeId, Knowledge knowledgeDetails) {
-       if(freelancerRepository.existsById(freelancerId)) {
+       if(!freelancerRepository.existsById(freelancerId)) {
            throw new ResourceNotFoundException(
                    "Freelancer", "Id", freelancerId
            );
@@ -61,7 +62,7 @@ public class KnowledgeServiceImpl implements KnowledgeService {
 
     @Override
     public ResponseEntity<?> deleteKnowledge(Long freelancerId, Long knowledgeId) {
-        if(freelancerRepository.existsById(freelancerId)) {
+        if(!freelancerRepository.existsById(freelancerId)) {
             throw new ResourceNotFoundException(
                     "Freelancer", "Id", freelancerId
             );
