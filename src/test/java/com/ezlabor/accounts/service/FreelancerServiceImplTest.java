@@ -111,7 +111,7 @@ public class FreelancerServiceImplTest {
     }
 
     @Test
-    public void whenGetFreelancersByFirstnameWithInvalidFirstnameThenReturnsFreelancer(){
+    public void whenGetFreelancersByFirstnameWithInvalidFirstnameThenReturnsNull(){
         String firstname = "Pedro";
         when(freelancerRepository.findAllByFirstname(firstname))
                 .thenReturn(null);
@@ -140,7 +140,7 @@ public class FreelancerServiceImplTest {
     }
 
     @Test
-    public void whenGetFreelancersByLastnameWithInvalidLastnameThenReturnsFreelancer(){
+    public void whenGetFreelancersByLastnameWithInvalidLastnameThenReturnsNull(){
         String lastname = "Rodriguez";
         when(freelancerRepository.findAllByLastname(lastname))
                 .thenReturn(null);
