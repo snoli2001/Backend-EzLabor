@@ -1,4 +1,4 @@
-package com.ezlabor.accounts;
+package com.ezlabor.accounts.service;
 
 import com.ezlabor.accounts.domain.model.Freelancer;
 import com.ezlabor.accounts.domain.repository.FreelancerRepository;
@@ -111,7 +111,7 @@ public class FreelancerServiceImplTest {
     }
 
     @Test
-    public void whenGetFreelancersByFirstnameWithInvalidFirstnameThenReturnsFreelancer(){
+    public void whenGetFreelancersByFirstnameWithInvalidFirstnameThenReturnsNull(){
         String firstname = "Pedro";
         when(freelancerRepository.findAllByFirstname(firstname))
                 .thenReturn(null);
@@ -140,7 +140,7 @@ public class FreelancerServiceImplTest {
     }
 
     @Test
-    public void whenGetFreelancersByLastnameWithInvalidLastnameThenReturnsFreelancer(){
+    public void whenGetFreelancersByLastnameWithInvalidLastnameThenReturnsNull(){
         String lastname = "Rodriguez";
         when(freelancerRepository.findAllByLastname(lastname))
                 .thenReturn(null);

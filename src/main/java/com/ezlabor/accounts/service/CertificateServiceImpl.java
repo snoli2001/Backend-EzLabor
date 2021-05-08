@@ -22,7 +22,7 @@ public class CertificateServiceImpl implements CertificateService {
 
     @Override
     public List<Certificate> getAllCertificatesByKnowledgeId(Long knowledgeId) {
-        return certificateRepository.findByKnowledgeId(knowledgeId);
+        return certificateRepository.findAllByKnowledgeId(knowledgeId);
     }
 
     @Override
