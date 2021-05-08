@@ -20,8 +20,6 @@ public class CertificateServiceImpl implements CertificateService {
     @Autowired
     private KnowledgeRepository knowledgeRepository;
 
-
-
     @Override
     public List<Certificate> getAllCertificatesByKnowledgeId(Long knowledgeId) {
         return certificateRepository.findByKnowledgeId(knowledgeId);
