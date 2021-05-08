@@ -8,29 +8,26 @@ import com.ezlabor.common.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class CertificateServiceImpl implements CertificateService {
-    private final CertificateRepository certificateRepository;
-    private final KnowledgeRepository knowledgeRepository;
-
     @Autowired
-    public CertificateServiceImpl(CertificateRepository certificateRepository, KnowledgeRepository knowledgeRepository) {
-        this.certificateRepository = certificateRepository;
-        this.knowledgeRepository = knowledgeRepository;
-    }
+    private CertificateRepository certificateRepository;
+    @Autowired
+    private KnowledgeRepository knowledgeRepository;
 
     @Override
-    public List<Certificate> getAllCertificatesByKnowledgeId(Long knowledgeId, Pageable pageable) {
+    public List<Certificate> getAllCertificatesByKnowledgeId(Long knowledgeId) {
         return certificateRepository.findByKnowledgeId(knowledgeId);
     }
 
     @Override
-    public Certificate getCertificateByIdAndKnowledgeId(Long certificateId, Long knowledgeId) {
-        return certificateRepository.findByIdAndKnowledgeId(certificateId, knowledgeId)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException("certificate not found with Id" + certificateId + "and knowledgeId"+ knowledgeId));
+    public Optional<Certificate> getCertificateByIdAndKnowledgeId(Long certificateId, Long knowledgeId) {
+        return certificateRepository.findByIdAndKnowledgeId(certificateId, knowledgeId);
     }
 
     @Override
