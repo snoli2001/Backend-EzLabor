@@ -12,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -25,7 +27,7 @@ public class EmployerServiceImplTest {
     private EmployerService employerService;
 
     @TestConfiguration
-    static class FreelancerServiceImplTestConfiguration{
+    static class EmployerServiceImplTestConfiguration{
         @Bean
         public EmployerService employerService(){
             return new EmployerServiceImpl();
@@ -55,6 +57,100 @@ public class EmployerServiceImplTest {
                 .thenReturn(null);
         // Act
         Optional<Employer> foundEmployer = employerService.getEmployerById(id);
+        // Assert
+        assertThat(foundEmployer).isEqualTo(null);
+    }
+
+    @Test
+    public void whenGetEmployerByCompanyNameWithValidCompanyNameThenReturnsEmployer(){
+        // Arrange
+        String companyName = "Movistar";
+        List<Employer> employerList = new ArrayList<Employer>();
+        Employer employer = new Employer();
+        employer.setId(1L);
+        employer.setFirstname("Juan");
+        employer.setCompanyName(companyName);
+        employerList.add(employer);
+        System.out.println();
+        when(employerRepository.findEmployersByCompanyName(companyName))
+                .thenReturn(employerList);
+
+        // Act
+        List<Employer> foundEmployer = employerService.getEmployerByCompanyName(companyName);
+
+        // Assert
+        assertThat(foundEmployer.get(0).getCompanyName()).isEqualTo(companyName);
+    }
+
+    @Test
+    public void whenGetEmployerByCompanyNameWithInvalidCompanyNameThenReturnsNull(){
+        // Arrange
+        String companyName = "Movistar";
+        when(employerRepository.findEmployersByCompanyName(companyName))
+                .thenReturn(null);
+        // Act
+        List<Employer> foundEmployer = employerService.getEmployerByCompanyName(companyName);
+        // Assert
+        assertThat(foundEmployer).isEqualTo(null);
+    }
+
+    @Test
+    public void whenGetEmployerByFirstnameWithValidFirstnameThenReturnsEmployer(){
+        // Arrange
+        String firstname = "Juan";
+        List<Employer> employerList = new ArrayList<Employer>();
+        Employer employer = new Employer();
+        employer.setId(1L);
+        employer.setFirstname(firstname);
+        employerList.add(employer);
+        System.out.println();
+        when(employerRepository.findEmployersByFirstname(firstname))
+                .thenReturn(employerList);
+        // Act
+        List<Employer> foundEmployer = employerService.getEmployersByFirstname(firstname);
+        // Assert
+        assertThat(foundEmployer.get(0).getFirstname()).isEqualTo(firstname);
+    }
+
+    @Test
+    public void whenGetEmployerByFirstnameWithInvalidFirstnameThenReturnsNull(){
+        // Arrange
+        String firstname = "Juan";
+        when(employerRepository.findEmployersByFirstname(firstname))
+                .thenReturn(null);
+        // Act
+        List<Employer> foundEmployer = employerService.getEmployersByFirstname(firstname);
+        // Assert
+        assertThat(foundEmployer).isEqualTo(null);
+    }
+
+    @Test
+    public void whenGetEmployerByLastnameWithValidLastnameThenReturnsEmployer(){
+        // Arrange
+        String lastname = "Perez";
+        List<Employer> employerList = new ArrayList<Employer>();
+        Employer employer = new Employer();
+        employer.setId(1L);
+        employer.setFirstname("Juan");
+        employer.setLastname(lastname);
+        employerList.add(employer);
+        System.out.println();
+        when(employerRepository.findEmployersByLastname(lastname))
+                .thenReturn(employerList);
+        // Act
+        List<Employer> foundEmployer = employerService.getEmployersByLastname(lastname);
+        // Assert
+        assertThat(foundEmployer.get(0).getLastname()).isEqualTo(lastname);
+    }
+
+    @Test
+    public void whenGetEmployerByLastnameWithInvalidLastnameThenReturnsNull(){
+        // Arrange
+        String lastname = "Perez";
+        when(employerRepository.findEmployersByLastname(lastname))
+                .thenReturn(null);
+        // Act
+        List<Employer> foundEmployer = employerService.getEmployersByLastname(lastname);
         // Assert
         assertThat(foundEmployer).isEqualTo(null);
     }
