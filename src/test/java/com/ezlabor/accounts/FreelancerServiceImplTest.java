@@ -12,6 +12,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -56,6 +58,94 @@ public class FreelancerServiceImplTest {
                 .thenReturn(null);
         // Act
         Optional<Freelancer> foundFreelancer = freelancerService.getFreelancerById(id);
+        // Assert
+        assertThat(foundFreelancer).isEqualTo(null);
+    }
+
+    @Test
+    public void whenGetFreelancersByProfessionWithValidProfessionThenReturnsFreelancer(){
+        // Arrange
+        String profession = "Diseñador";
+        List<Freelancer> freelancerList = new ArrayList<Freelancer>();
+        Freelancer freelancer = new Freelancer();
+        freelancer.setId(1L);
+        freelancer.setFirstname("Jose");
+        freelancer.setProfession(profession);
+        freelancerList.add(freelancer);
+        System.out.println(freelancerList);
+        when(freelancerRepository.findAllByProfession(profession))
+                .thenReturn(freelancerList);
+        // Act
+        List<Freelancer> foundFreelancer = freelancerService.getFreelancersByProfession(profession);
+        // Assert
+        assertThat(foundFreelancer.get(0).getProfession()).isEqualTo(profession);
+    }
+
+    @Test
+    public void whenGetFreelancersByProfessionWithInvalidProfessionThenReturnsNull(){
+        // Arrange
+        String profession = "Diseñador";
+        when(freelancerRepository.findAllByProfession(profession))
+                .thenReturn(null);
+        // Act
+        List<Freelancer> foundFreelancer = freelancerService.getFreelancersByProfession(profession);
+        // Assert
+        assertThat(foundFreelancer).isEqualTo(null);
+    }
+
+    @Test
+    public void whenGetFreelancersByFirstnameWithValidFirstnameThenReturnsFreelancer(){
+        String firstname = "Pedro";
+        List<Freelancer> freelancerList = new ArrayList<Freelancer>();
+        Freelancer freelancer = new Freelancer();
+        freelancer.setId(1L);
+        freelancer.setFirstname(firstname);
+        freelancerList.add(freelancer);
+        System.out.println(freelancerList);
+        when(freelancerRepository.findAllByFirstname(firstname))
+                .thenReturn(freelancerList);
+        //Act
+        List<Freelancer> foundFreelancer = freelancerService.getFreelancersByFirstname(firstname);
+        //Assert
+        assertThat(foundFreelancer.get(0).getFirstname()).isEqualTo(firstname);
+    }
+
+    @Test
+    public void whenGetFreelancersByFirstnameWithInvalidFirstnameThenReturnsFreelancer(){
+        String firstname = "Pedro";
+        when(freelancerRepository.findAllByFirstname(firstname))
+                .thenReturn(null);
+        // Act
+        List<Freelancer> foundFreelancer = freelancerService.getFreelancersByFirstname(firstname);
+        // Assert
+        assertThat(foundFreelancer).isEqualTo(null);
+    }
+
+    @Test
+    public void whenGetFreelancersByLastnameWithValidLastnameThenReturnsFreelancer(){
+        // Arrange
+        String lastname = "Rodriguez";
+        List<Freelancer> freelancerList = new ArrayList<Freelancer>();
+        Freelancer freelancer = new Freelancer();
+        freelancerList.add(freelancer);
+        freelancer.setId(1L);
+        freelancer.setFirstname("Pedro");
+        freelancer.setLastname(lastname);
+        when(freelancerRepository.findAllByLastname(lastname))
+                .thenReturn(freelancerList);
+        // Act
+        List<Freelancer> foundFreelancer = freelancerService.getFreelancersByLastname(lastname);
+        // Assert
+        assertThat(foundFreelancer.get(0).getLastname()).isEqualTo(lastname);
+    }
+
+    @Test
+    public void whenGetFreelancersByLastnameWithInvalidLastnameThenReturnsFreelancer(){
+        String lastname = "Rodriguez";
+        when(freelancerRepository.findAllByLastname(lastname))
+                .thenReturn(null);
+        // Act
+        List<Freelancer> foundFreelancer = freelancerService.getFreelancersByLastname(lastname);
         // Assert
         assertThat(foundFreelancer).isEqualTo(null);
     }
