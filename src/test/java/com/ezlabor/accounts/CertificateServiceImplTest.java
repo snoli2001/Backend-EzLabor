@@ -3,6 +3,7 @@ package com.ezlabor.accounts;
 import com.ezlabor.accounts.domain.model.background.Certificate;
 import com.ezlabor.accounts.domain.model.background.Knowledge;
 import com.ezlabor.accounts.domain.repository.CertificateRepository;
+import com.ezlabor.accounts.domain.repository.FreelancerRepository;
 import com.ezlabor.accounts.domain.repository.KnowledgeRepository;
 import com.ezlabor.accounts.domain.service.CertificateService;
 import com.ezlabor.accounts.domain.service.KnowledgeService;
@@ -30,6 +31,8 @@ public class CertificateServiceImplTest {
     private CertificateService certificateService;
     @MockBean
     private KnowledgeRepository knowledgeRepository;
+    @MockBean
+    private FreelancerRepository freelancerRepository;
     @TestConfiguration
     static class CertificateServiceTestConfiguration{
 
@@ -76,9 +79,9 @@ public class CertificateServiceImplTest {
         certificate2.setKnowledge(knowledge);
         certificate2.setCertificate_url("http://esteesuncertificado.com");
         certificateList.add(certificate2);
-        when(certificateRepository.findByFreelancerIdAndKnowledgeId(id,id)).thenReturn(certificateList);
+        when(certificateRepository.findAllByKnowledgeId(id)).thenReturn(certificateList);
         //Act
-        List<Certificate> foundCertificates = certificateService.getAllCertificatesByFreelancerIdAndKnowledgeId(id, id);
+        List<Certificate> foundCertificates = certificateService.getAllCertificatesByKnowledgeId(id);
         //Assert
         assertThat(foundCertificates.get(0).getKnowledge().getId()).isEqualTo(id);
         assertThat(foundCertificates.size()).isEqualTo(2);

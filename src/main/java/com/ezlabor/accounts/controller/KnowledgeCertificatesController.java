@@ -23,24 +23,18 @@ public class KnowledgeCertificatesController {
     @Autowired
     private ModelMapper mapper;
 
-    @GetMapping("freelancer/{freelancerId}/knowledge/{knowledgeId}/certificates/")
-    public List<CertificateResource> getAllCertificatesByKnowledgeId(@PathVariable Long freelancerId, @PathVariable Long knowledgeId)
+    @GetMapping("/knowledge/{knowledgeId}/certificates/")
+    public List<CertificateResource> getAllCertificatesByKnowledgeId(@PathVariable Long knowledgeId)
     {
-        return certificateService.getAllCertificatesByFreelancerIdAndKnowledgeId(freelancerId, knowledgeId).stream().map(this::convertToResource).collect(Collectors.toList());
+        return certificateService.getAllCertificatesByKnowledgeId(knowledgeId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
-    @GetMapping("freelancer/{freelancerId}/knowledge/{knowledgeId}/certificates/{certificateId}")
-    public CertificateResource getCertificateById(@PathVariable Long freelancerId, @PathVariable Long knowledgeId, @PathVariable Long certificateId){
+    @GetMapping("knowledge/{knowledgeId}/certificates/{certificateId}")
+    public CertificateResource getCertificateById(@PathVariable Long knowledgeId, @PathVariable Long certificateId){
         return convertToResource(certificateService.getCertificateByIdAndKnowledgeId(certificateId, knowledgeId).get());
     }
 
-    @GetMapping("/certificates/{certificateId}")
-    public CertificateResource getCertificateByIdAndKnowledgeId(@PathVariable Long certificateId, @PathVariable Long knowledgeId){
-        Optional<Certificate> certificate = certificateService.getCertificateByIdAndKnowledgeId(certificateId, knowledgeId);
-        return convertToResource(certificate.get());
-    }
-
-    @PostMapping("/certificates")
+    @PostMapping("knowledge/{knowledgeId}/certificates")
     public CertificateResource createCertificate(@PathVariable Long knowledgeId, @Valid @RequestBody SaveCertificateResource resource){
         Certificate certificate = convertToEntity(resource);
         return convertToResource(certificateService.createCertificate(knowledgeId, certificate));

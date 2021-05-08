@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CertificateService {
-    List<Certificate> getAllCertificatesByFreelancerIdAndKnowledgeId(Long freelancerId, Long knowledgeId);
+    List<Certificate> getAllCertificatesByKnowledgeId(Long knowledgeId);
     Optional<Certificate> getCertificateByIdAndKnowledgeId(Long certificateId, Long knowledgeId);
     Certificate createCertificate(Long knowledgeId, Certificate certificate);
     Certificate updateCertificate(Long knowledgeId, Long certificateId, Certificate certificateDetails);
