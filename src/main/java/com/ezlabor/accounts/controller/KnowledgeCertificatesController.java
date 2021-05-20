@@ -1,5 +1,6 @@
 package com.ezlabor.accounts.controller;
 import com.ezlabor.accounts.resource.certificate.CertificateResource;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import com.ezlabor.accounts.domain.model.background.Certificate;
 import com.ezlabor.accounts.domain.service.CertificateService;
@@ -22,31 +23,32 @@ public class KnowledgeCertificatesController {
 
     @Autowired
     private ModelMapper mapper;
-
+    @Operation(tags = "Certificates")
     @GetMapping("/knowledge/{knowledgeId}/certificates/")
     public List<CertificateResource> getAllCertificatesByKnowledgeId(@PathVariable Long knowledgeId)
     {
         return certificateService.getAllCertificatesByKnowledgeId(knowledgeId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
-
+    @Operation(tags = "Certificates")
     @GetMapping("knowledge/{knowledgeId}/certificates/{certificateId}")
     public CertificateResource getCertificateById(@PathVariable Long knowledgeId, @PathVariable Long certificateId){
         return convertToResource(certificateService.getCertificateByIdAndKnowledgeId(certificateId, knowledgeId).get());
     }
 
+    @Operation(tags = "Certificates")
     @PostMapping("knowledge/{knowledgeId}/certificates")
     public CertificateResource createCertificate(@PathVariable Long knowledgeId, @Valid @RequestBody SaveCertificateResource resource){
         Certificate certificate = convertToEntity(resource);
         return convertToResource(certificateService.createCertificate(knowledgeId, certificate));
     }
-
+    @Operation(tags = "Certificates")
     @PutMapping("/certificates/{certificateId}")
     public CertificateResource updateCertificate(@PathVariable Long knowledgeId, Long certificateId, @Valid @RequestBody SaveCertificateResource resource){
         Certificate certificate = convertToEntity(resource);
         return convertToResource(certificateService.updateCertificate(knowledgeId,certificateId,certificate));
     }
 
-
+    @Operation(tags = "Certificates")
     @DeleteMapping("/certificates/{certificateId}")
     public ResponseEntity<?> deleteCertificate(@PathVariable Long
                                                        knowledgeId, Long certificateId){

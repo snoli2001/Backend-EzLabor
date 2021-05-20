@@ -32,7 +32,7 @@ public class EmployersController {
     }
 
     @Operation(summary = "Get Employers", description = "Get All Employers",
-            tags = "employers")
+            tags = "Employers")
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Should retrieve all Employers",
             content = @Content(mediaType = "application/json"))})
     @GetMapping("/employers")
@@ -55,7 +55,7 @@ public class EmployersController {
     }
 
     @Operation(summary = "Get Employer By Id", description = "Get EmployerById",
-            tags = "employers")
+            tags = "Employers")
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Should retrieve an employer with the given Id",
             content = @Content(mediaType = "application/json"))})
     @GetMapping("/employers/{employerId}/")
@@ -65,7 +65,7 @@ public class EmployersController {
     }
 
     @Operation(summary = "Post Employer", description = "Post Employer",
-            tags = "employers")
+            tags = "Employers")
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Should create an employer ",
             content = @Content(mediaType = "application/json"))})
     @PostMapping("/employers")
@@ -75,7 +75,7 @@ public class EmployersController {
         return convertToResource(employerService.createEmployer(employer));
     }
     @Operation(summary = "Put Employer", description = "Put Employer",
-            tags = "employers")
+            tags = "Employers")
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Should update an employer ",
             content = @Content(mediaType = "application/json"))})
     @PutMapping("/employers/{employerId}")
@@ -85,7 +85,7 @@ public class EmployersController {
         return convertToResource(employerService.updateEmployer(employerId, employer));
     }
     @Operation(summary = "Put Employer", description = "Put Employer",
-            tags = "employers")
+            tags = "Employers")
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Should retrieve an updated employer ",
             content = @Content(mediaType = "application/json"))})
     @DeleteMapping("/employers/{employerId}")

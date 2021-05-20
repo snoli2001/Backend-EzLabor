@@ -1,5 +1,6 @@
 package com.ezlabor.accounts.controller;
 import com.ezlabor.accounts.resource.freelancer.FreelancerResource;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import com.ezlabor.accounts.domain.model.Freelancer;
 import com.ezlabor.accounts.domain.service.FreelancerService;
@@ -26,7 +27,7 @@ public class FreelancersController {
 
 
 
-
+    @Operation(tags = "Freelancers")
     @GetMapping("/freelancers")
     public List<FreelancerResource> getAllFreelancers(@RequestParam(required = false) String firstname,
                                                       @RequestParam(required = false) String lastname,
@@ -44,12 +45,13 @@ public class FreelancersController {
         return freelancerService.getAllFreelancers()
                 .stream().map(this::convertToResource).collect(Collectors.toList());
     }
-
+    @Operation(tags = "Freelancers")
     @GetMapping("/freelancers/{freelancerId}")
     public FreelancerResource getFreelancerById(@PathVariable Long freelancerId) {
         Optional<Freelancer> freelancer = freelancerService.getFreelancerById(freelancerId);
         return freelancer.map(this::convertToResource).orElse(null);
     }
+    @Operation(tags = "Freelancers")
     @PostMapping("/freelancers")
     public FreelancerResource createFreelancer(@Valid @RequestBody SaveFreelancerResource resource){
         Freelancer freelancer = convertToEntity(resource);
@@ -57,7 +59,7 @@ public class FreelancersController {
         return convertToResource(freelancerService.createFreelancer(freelancer));
     }
 
-
+    @Operation(tags = "Freelancers")
     @PutMapping("/freelancers/{freelancerId}")
     public FreelancerResource updateFreelancer(@PathVariable Long freelancerId, @Valid @RequestBody SaveFreelancerResource resource){
         Freelancer freelancer = convertToEntity(resource);
@@ -65,6 +67,7 @@ public class FreelancersController {
         return convertToResource(freelancerService.updateFreelancer(freelancerId, freelancer));
     }
 
+    @Operation(tags = "Freelancers")
     @DeleteMapping("/freelancers/{freelancerId}")
     public ResponseEntity<?> deleteFreelancer(@PathVariable Long freelancerId){
         return freelancerService.deleteFreelancer(freelancerId);
