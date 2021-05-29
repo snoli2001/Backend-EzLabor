@@ -1,5 +1,6 @@
 package com.ezlabor.accounts.domain.model;
 
+import com.ezlabor.locations.domain.model.District;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -27,4 +28,6 @@ public class Freelancer extends Profile{
     private String phone;
     private String description;
     private String profession;
+    @ManyToOne(fetch = FetchType.LAZY,optional = false)
+    private District employerDistrict;
 }
