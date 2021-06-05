@@ -5,6 +5,7 @@ import com.ezlabor.accounts.domain.service.FreelancerService;
 import com.ezlabor.accounts.domain.service.KnowledgeService;
 import com.ezlabor.accounts.resource.knowledge.KnowledgeResource;
 import com.ezlabor.accounts.resource.knowledge.SaveKnowledgeResource;
+import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,20 +27,20 @@ public class FreelancerKnowledgeController {
     @Autowired
     private ModelMapper mapper;
 
-
+    @Operation(tags = "knowledges")
     @GetMapping("/freelancers/{freelancerId}/knowledges")
     public List<KnowledgeResource> getKnowledgeResources(@PathVariable Long freelancerId){
         List<Knowledge> knowledgeList = knowledgeService.getAllKnowledgeByFreelancerId(freelancerId);
         return knowledgeList.stream().map(knowledge -> convertToResource(knowledge)).collect(Collectors.toList());
     }
-
+    @Operation(tags = "knowledges")
     @PostMapping("/freelancers/{freelancerId}/knowledges")
     public KnowledgeResource createKnowledge(@PathVariable Long freelancerId,@Valid @RequestBody SaveKnowledgeResource resource){
 
         Knowledge knowledge = convertToEntity(resource);
         return convertToResource(knowledgeService.createKnowledge(freelancerId, knowledge));
     }
-
+    @Operation(tags = "knowledges")
     @PutMapping("/freelancers/{freelancerId}/knowledges/{knowledgeId}")
     public KnowledgeResource updateKnowledge(@PathVariable Long freelancerId, @PathVariable Long knowledgeId, @Valid @RequestBody SaveKnowledgeResource resource){
         Knowledge knowledge = convertToEntity(resource);
@@ -47,7 +48,7 @@ public class FreelancerKnowledgeController {
         return convertToResource(knowledgeService.updateKnowledge(freelancerId, knowledgeId, knowledge));
     }
 
-
+    @Operation(tags = "knowledges")
     @DeleteMapping("/freelancers/{freelancerId}/knowledges/{knowledgeId}")
     public ResponseEntity<?> deleteKnowledge(@PathVariable Long freelancerId, @PathVariable Long knowledgeId){
         return knowledgeService.deleteKnowledge(freelancerId, knowledgeId);

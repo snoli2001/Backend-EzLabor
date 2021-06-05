@@ -1,6 +1,7 @@
 package com.ezlabor.accounts.resource.knowledge;
 
 import com.ezlabor.accounts.domain.model.background.Knowledge;
+import com.ezlabor.common.SkillLevel;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -15,5 +16,5 @@ public class SaveKnowledgeResource {
     @Size(min = 2,max = 200)
     private String description;
     @NotNull
-    private Knowledge.KnowledgeLevel level;
+    private SkillLevel level;
 }
