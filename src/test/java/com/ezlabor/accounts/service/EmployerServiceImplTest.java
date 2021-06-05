@@ -140,7 +140,7 @@ public class EmployerServiceImplTest {
         // Act
         List<Employer> foundEmployer = employerService.getEmployersByLastname(lastname);
         // Assert
-        assertThat(foundEmployer.get(0).getLastname()).isEqualTo(lastname);
+            assertThat(foundEmployer.get(0).getLastname()).isEqualTo(lastname);
     }
 
     @Test

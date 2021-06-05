@@ -1,6 +1,7 @@
 package com.ezlabor.accounts.domain.model.background;
 
 import com.ezlabor.accounts.domain.model.Freelancer;
+import com.ezlabor.common.SkillLevel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -23,12 +24,6 @@ public class Knowledge {
     @Lob
     private String description;
     @Enumerated(value = EnumType.STRING)
-    private KnowledgeLevel level;
+    private SkillLevel level;
 
-    public enum KnowledgeLevel {
-        BASIC,
-        INTERMEDIATE,
-        ADVANCED,
-        EXPERT
-    }
 }
