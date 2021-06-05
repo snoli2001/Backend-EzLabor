@@ -29,10 +29,6 @@ public class CertificateServiceImplTest {
     private CertificateRepository certificateRepository;
     @Autowired
     private CertificateService certificateService;
-    @MockBean
-    private KnowledgeRepository knowledgeRepository;
-    @MockBean
-    private FreelancerRepository freelancerRepository;
     @TestConfiguration
     static class CertificateServiceTestConfiguration{
 

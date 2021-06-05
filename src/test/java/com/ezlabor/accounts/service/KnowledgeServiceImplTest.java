@@ -2,9 +2,7 @@ package com.ezlabor.accounts.service;
 
 import com.ezlabor.accounts.domain.model.Freelancer;
 import com.ezlabor.accounts.domain.model.background.Knowledge;
-import com.ezlabor.accounts.domain.repository.FreelancerRepository;
 import com.ezlabor.accounts.domain.repository.KnowledgeRepository;
-import com.ezlabor.accounts.domain.service.EmployerService;
 import com.ezlabor.accounts.domain.service.KnowledgeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,8 +27,6 @@ public class KnowledgeServiceImplTest {
     private KnowledgeRepository knowledgeRepository;
     @Autowired
     private KnowledgeService knowledgeService;
-    @MockBean
-    private FreelancerRepository freelancerRepository;
     @TestConfiguration
     static class KnowledgeServiceImplTestConfiguration{
         @Bean
