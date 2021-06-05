@@ -28,10 +28,9 @@ public class PublicationController {
     private ModelMapper mapper;
 
     @GetMapping("/users/{userId}/publications")
-    public Page<PublicationResource> getAllPublicationsByUserId(@PathVariable Long userId, Pageable pageable) {
-        List<PublicationResource> publications = publicationService.getAllPublicationsByUserId(userId, pageable)
-                .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(publications, pageable, publications.size());
+    public List<PublicationResource> getAllPublicationsByUserId(@PathVariable Long userId) {
+        return publicationService.getAllPublicationsByUserId(userId).stream().map(this::convertToResource).collect(Collectors.toList());
+
     }
 
     @GetMapping("/users/{userId}/publications/{publicationId}")

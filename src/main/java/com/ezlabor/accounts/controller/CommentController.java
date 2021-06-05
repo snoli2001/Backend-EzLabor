@@ -27,17 +27,13 @@ public class CommentController {
     private ModelMapper mapper;
 
     @GetMapping("/publications/{publicationId}/comments")
-    public Page<CommentResource> getAllCommentsByPublicationId(@PathVariable Long publicationId, Pageable pageable) {
-        List<CommentResource> comments = commentService.getAllCommentsByPublicationId(publicationId, pageable)
-                .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(comments, pageable, comments.size());
+    public List<CommentResource> getAllCommentsByPublicationId(@PathVariable Long publicationId) {
+        return commentService.getAllCommentsByPublicationId(publicationId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
     @GetMapping("/users/{userId}/comments")
-    public Page<CommentResource> getAllCommentsByUserId(@PathVariable Long userId, Pageable pageable) {
-        List<CommentResource> comments = commentService.getAllCommentsByUserId(userId, pageable)
-                .getContent().stream().map(this::convertToResource).collect(Collectors.toList());
-        return new PageImpl<>(comments, pageable, comments.size());
+    public List<CommentResource> getAllCommentsByUserId(@PathVariable Long userId, Pageable pageable) {
+        return commentService.getAllCommentsByUserId(userId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
     @GetMapping("/publications/{publicationId}/comments/{commentId}")

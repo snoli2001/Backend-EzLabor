@@ -5,9 +5,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface CommentService {
-    Page<Comment> getAllCommentsByPublicationId(Long publicationId, Pageable pageable);
-    Page<Comment> getAllCommentsByUserId(Long userId, Pageable pageable);
+    List<Comment> getAllCommentsByPublicationId(Long publicationId);
+    List<Comment> getAllCommentsByUserId(Long userId);
     Comment getCommentByIdAndPublicationId(Long publicationId, Long commentId);
     Comment createComment(Long publicationId, Comment comment);
     Comment updateComment(Long publicationId, Long commentId, Comment commentRequest);

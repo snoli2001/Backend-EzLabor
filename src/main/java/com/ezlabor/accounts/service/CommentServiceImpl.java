@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CommentServiceImpl implements CommentService{
 
@@ -22,13 +24,13 @@ public class CommentServiceImpl implements CommentService{
     private PublicationRepository publicationRepository;
 
     @Override
-    public Page<Comment> getAllCommentsByPublicationId(Long publicationId, Pageable pageable) {
-        return commentRepository.findByPublicationId(publicationId, pageable);
+    public List<Comment> getAllCommentsByPublicationId(Long publicationId) {
+        return commentRepository.findByPublicationId(publicationId);
     }
 
     @Override
-    public Page<Comment> getAllCommentsByUserId(Long userId, Pageable pageable) {
-        return commentRepository.findByUserId(userId, pageable);
+    public List<Comment> getAllCommentsByUserId(Long userId) {
+        return commentRepository.findByUserId(userId);
     }
 
     @Override

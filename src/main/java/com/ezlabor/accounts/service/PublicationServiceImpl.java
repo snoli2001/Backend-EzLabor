@@ -14,6 +14,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PublicationServiceImpl implements PublicationService {
 
@@ -27,8 +29,8 @@ public class PublicationServiceImpl implements PublicationService {
     private CommentRepository commentRepository;
 
     @Override
-    public Page<Publication> getAllPublicationsByUserId(Long userId, Pageable pageable) {
-        return publicationRepository.findByUserId(userId, pageable);
+    public List<Publication> getAllPublicationsByUserId(Long userId) {
+        return publicationRepository.findByUserId(userId);
     }
 
     @Override
@@ -64,10 +66,9 @@ public class PublicationServiceImpl implements PublicationService {
             throw new ResourceNotFoundException("User", "Id", userId);
         Publication publication = publicationRepository.findById(publicationId)
                 .orElseThrow(() -> new ResourceNotFoundException("Publication", "Id", publicationId));
-        Pageable pageable = PageRequest.of(1, 1000);
-        Page<Comment> commentPage = commentRepository.findByPublicationId(publicationId, pageable);
+        List<Comment> comments = commentRepository.findByPublicationId(publicationId);
 
-        commentPage.forEach(comment -> { commentRepository.delete(comment); });
+        comments.forEach(comment -> { commentRepository.delete(comment); });
 
         publicationRepository.delete(publication);
         return ResponseEntity.ok().build();
