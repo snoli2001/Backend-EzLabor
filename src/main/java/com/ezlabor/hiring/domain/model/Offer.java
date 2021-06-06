@@ -26,7 +26,8 @@ public class Offer extends AuditModel {
     private float paymentAmount;
     private Date startDate;
     private Date endDate;
-    private boolean isActive;
+    private boolean isActive = true;
+    private int monthDuration;
     @OneToMany(mappedBy = "offer", fetch = FetchType.LAZY, cascade =CascadeType.ALL)
     @JsonIgnore
     private List<Postulation> postulations;

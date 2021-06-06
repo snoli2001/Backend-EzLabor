@@ -9,6 +9,6 @@ import java.util.Optional;
 
 @Repository
 public interface CertificateRepository extends JpaRepository<Certificate, Long> {
-    List<Certificate> findAllByKnowledgeId( Long knowledgeId);
-    Optional<Certificate> findByIdAndKnowledgeId (Long certificateId, Long knowledgeId);
+    List<Certificate> findAllBySkillId( Long skillId);
+    Optional<Certificate> findByIdAndSkillId (Long certificateId, Long skillId);
 }

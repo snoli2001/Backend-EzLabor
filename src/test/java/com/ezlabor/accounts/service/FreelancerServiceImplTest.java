@@ -29,6 +29,7 @@ public class FreelancerServiceImplTest {
 
     @TestConfiguration
     static class FreelancerServiceImplTestConfiguration{
+
         @Bean
         public FreelancerService freelancerService(){
             return new FreelancerServiceImpl();

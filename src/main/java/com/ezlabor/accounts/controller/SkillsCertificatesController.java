@@ -17,42 +17,42 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
-public class KnowledgeCertificatesController {
+public class SkillsCertificatesController {
     @Autowired
     private CertificateService certificateService;
 
     @Autowired
     private ModelMapper mapper;
     @Operation(tags = "Certificates")
-    @GetMapping("/knowledge/{knowledgeId}/certificates/")
-    public List<CertificateResource> getAllCertificatesByKnowledgeId(@PathVariable Long knowledgeId)
+    @GetMapping("/skills/{skillId}/certificates/")
+    public List<CertificateResource> getAllCertificatesBySkillId(@PathVariable Long skillId)
     {
-        return certificateService.getAllCertificatesByKnowledgeId(knowledgeId).stream().map(this::convertToResource).collect(Collectors.toList());
+        return certificateService.getAllCertificatesBySkillId(skillId).stream().map(this::convertToResource).collect(Collectors.toList());
     }
     @Operation(tags = "Certificates")
-    @GetMapping("knowledge/{knowledgeId}/certificates/{certificateId}")
-    public CertificateResource getCertificateById(@PathVariable Long knowledgeId, @PathVariable Long certificateId){
-        return convertToResource(certificateService.getCertificateByIdAndKnowledgeId(certificateId, knowledgeId).get());
+    @GetMapping("skills/{skillId}/certificates/{certificateId}")
+    public CertificateResource getCertificateById(@PathVariable Long skillId, @PathVariable Long certificateId){
+        return convertToResource(certificateService.getCertificateByIdAndSkillId(certificateId, skillId).get());
     }
 
     @Operation(tags = "Certificates")
-    @PostMapping("knowledge/{knowledgeId}/certificates")
-    public CertificateResource createCertificate(@PathVariable Long knowledgeId, @Valid @RequestBody SaveCertificateResource resource){
+    @PostMapping("/skills/{skillId}/certificates")
+    public CertificateResource createCertificate(@PathVariable Long skillId, @Valid @RequestBody SaveCertificateResource resource){
         Certificate certificate = convertToEntity(resource);
-        return convertToResource(certificateService.createCertificate(knowledgeId, certificate));
+        return convertToResource(certificateService.createCertificate(skillId, certificate));
     }
     @Operation(tags = "Certificates")
     @PutMapping("/certificates/{certificateId}")
-    public CertificateResource updateCertificate(@PathVariable Long knowledgeId, Long certificateId, @Valid @RequestBody SaveCertificateResource resource){
+    public CertificateResource updateCertificate(@PathVariable Long skillId, Long certificateId, @Valid @RequestBody SaveCertificateResource resource){
         Certificate certificate = convertToEntity(resource);
-        return convertToResource(certificateService.updateCertificate(knowledgeId,certificateId,certificate));
+        return convertToResource(certificateService.updateCertificate(skillId,certificateId,certificate));
     }
 
     @Operation(tags = "Certificates")
     @DeleteMapping("/certificates/{certificateId}")
     public ResponseEntity<?> deleteCertificate(@PathVariable Long
-                                                       knowledgeId, Long certificateId){
-        return certificateService.deleteCertificate(knowledgeId, certificateId);
+                                                       skillId, Long certificateId){
+        return certificateService.deleteCertificate(skillId, certificateId);
     }
 
     private Certificate convertToEntity(SaveCertificateResource resource){
