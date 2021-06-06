@@ -1,6 +1,4 @@
 package com.ezlabor.locations.service;
-
-import com.ezlabor.accounts.domain.model.background.Knowledge;
 import com.ezlabor.common.exception.ResourceNotFoundException;
 import com.ezlabor.locations.domain.model.District;
 import com.ezlabor.locations.domain.model.Province;
