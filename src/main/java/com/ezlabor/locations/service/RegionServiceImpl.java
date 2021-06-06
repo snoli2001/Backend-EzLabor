@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.SecondaryTable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RegionServiceImpl implements RegionService {
@@ -33,11 +33,11 @@ public class RegionServiceImpl implements RegionService {
     }
 
     @Override
-    public Region getRegionById(Long regionId) {
-        return regionRepository.findById(regionId)
-                .orElseThrow(()-> new ResourceNotFoundException(
-                        "Region", "Id", regionId
-                ));
+    public Optional<Region> getRegionById(Long regionId) {
+        return regionRepository.findById(regionId);
+                //.orElseThrow(()-> new ResourceNotFoundException(
+                //        "Region", "Id", regionId
+                //));
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -33,7 +34,8 @@ public class RegionController {
 
     @GetMapping("/regions/{id}")
     public RegionResource getRegionById(@PathVariable Long id){
-        return convertToResource(regionService.getRegionById(id));
+        Optional<Region> region = regionService.getRegionById(id);
+        return region.map(this::convertToResource).orElse(null);
     }
 
     @PostMapping("/regions")
