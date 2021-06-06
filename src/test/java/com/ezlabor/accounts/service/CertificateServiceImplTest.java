@@ -1,13 +1,11 @@
 package com.ezlabor.accounts.service;
 
 import com.ezlabor.accounts.domain.model.background.Certificate;
-import com.ezlabor.accounts.domain.model.background.Knowledge;
+import com.ezlabor.accounts.domain.model.background.Skill;
 import com.ezlabor.accounts.domain.repository.CertificateRepository;
 import com.ezlabor.accounts.domain.repository.FreelancerRepository;
-import com.ezlabor.accounts.domain.repository.KnowledgeRepository;
+import com.ezlabor.accounts.domain.repository.SkillRepository;
 import com.ezlabor.accounts.domain.service.CertificateService;
-import com.ezlabor.accounts.domain.service.KnowledgeService;
-import com.ezlabor.accounts.service.CertificateServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +28,7 @@ public class CertificateServiceImplTest {
     @Autowired
     private CertificateService certificateService;
     @MockBean
-    private KnowledgeRepository knowledgeRepository;
+    private SkillRepository skillRepository;
     @MockBean
     private FreelancerRepository freelancerRepository;
     @TestConfiguration
@@ -43,47 +41,47 @@ public class CertificateServiceImplTest {
     }
 
     @Test
-    void whenGetCertificateByKnowledgeIdAndCertificateIdWithValidIdThenReturnsCertificate() {
+    void whenGetCertificateBySkillIdAndCertificateIdWithValidIdThenReturnsCertificate() {
         //Arrange
         Long id = 1L;
-        Knowledge knowledge = new Knowledge();
-        knowledge.setId(id);
-        knowledge.setName("angular");
+        Skill skill = new Skill();
+        skill.setId(id);
+        skill.setName("angular");
 
         Certificate certificate = new Certificate();
         certificate.setId(id);
         certificate.setCertificate_url("http://esteesuncertificado.com");
-        when(certificateRepository.findByIdAndKnowledgeId(id,id)).thenReturn(Optional.of(certificate));
+        when(certificateRepository.findByIdAndSkillId(id,id)).thenReturn(Optional.of(certificate));
         //Act
-        Optional<Certificate> foundCertificate = certificateService.getCertificateByIdAndKnowledgeId(id,id);
+        Optional<Certificate> foundCertificate = certificateService.getCertificateByIdAndSkillId(id,id);
         //Assert
         assertThat(foundCertificate.get().getId()).isEqualTo(id);
     }
 
     @Test
-    void whenGetAllCertificatesByKnowledgeIdWithValidIdThenReturnsCertificates(){
+    void whenGetAllCertificatesBySkillIdWithValidIdThenReturnsCertificates(){
         //Arrange
         Long id = 1L;
-        Knowledge knowledge = new Knowledge();
-        knowledge.setId(id);
-        knowledge.setName("angular");
+        Skill skill = new Skill();
+        skill.setId(id);
+        skill.setName("angular");
         List<Certificate> certificateList = new ArrayList<Certificate>();
         Certificate certificate = new Certificate();
         certificate.setId(id);
-        certificate.setKnowledge(knowledge);
+        certificate.setSkill(skill);
         certificate.setCertificate_url("http://esteesuncertificado.com");
         certificateList.add(certificate);
 
         Certificate certificate2 = new Certificate();
         certificate2.setId(id);
-        certificate2.setKnowledge(knowledge);
+        certificate2.setSkill(skill);
         certificate2.setCertificate_url("http://esteesuncertificado.com");
         certificateList.add(certificate2);
-        when(certificateRepository.findAllByKnowledgeId(id)).thenReturn(certificateList);
+        when(certificateRepository.findAllBySkillId(id)).thenReturn(certificateList);
         //Act
-        List<Certificate> foundCertificates = certificateService.getAllCertificatesByKnowledgeId(id);
+        List<Certificate> foundCertificates = certificateService.getAllCertificatesBySkillId(id);
         //Assert
-        assertThat(foundCertificates.get(0).getKnowledge().getId()).isEqualTo(id);
+        assertThat(foundCertificates.get(0).getSkill().getId()).isEqualTo(id);
         assertThat(foundCertificates.size()).isEqualTo(2);
     }
 }

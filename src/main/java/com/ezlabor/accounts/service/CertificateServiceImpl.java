@@ -2,11 +2,10 @@ package com.ezlabor.accounts.service;
 
 import com.ezlabor.accounts.domain.model.background.Certificate;
 import com.ezlabor.accounts.domain.repository.CertificateRepository;
-import com.ezlabor.accounts.domain.repository.KnowledgeRepository;
+import com.ezlabor.accounts.domain.repository.SkillRepository;
 import com.ezlabor.accounts.domain.service.CertificateService;
 import com.ezlabor.common.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,34 +17,34 @@ public class CertificateServiceImpl implements CertificateService {
     @Autowired
     private CertificateRepository certificateRepository;
     @Autowired
-    private KnowledgeRepository knowledgeRepository;
+    private SkillRepository skillRepository;
 
     @Override
-    public List<Certificate> getAllCertificatesByKnowledgeId(Long knowledgeId) {
-        return certificateRepository.findAllByKnowledgeId(knowledgeId);
+    public List<Certificate> getAllCertificatesBySkillId(Long skillId) {
+        return certificateRepository.findAllBySkillId(skillId);
     }
 
     @Override
-    public Optional<Certificate> getCertificateByIdAndKnowledgeId(Long certificateId, Long knowledgeId) {
-        return certificateRepository.findByIdAndKnowledgeId(certificateId, knowledgeId);
+    public Optional<Certificate> getCertificateByIdAndSkillId(Long certificateId, Long skillId) {
+        return certificateRepository.findByIdAndSkillId(certificateId, skillId);
     }
 
     @Override
-    public Certificate createCertificate(Long knowledgeId, Certificate certificate) {
-        return knowledgeRepository.findById(knowledgeId).map(knowledge -> {
-            certificate.setKnowledge(knowledge);
+    public Certificate createCertificate(Long skillId, Certificate certificate) {
+        return skillRepository.findById(skillId).map(skill -> {
+            certificate.setSkill(skill);
             return certificateRepository.save(certificate);
         })
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "Knowledge", "Id", knowledgeId
+                        "Skill", "Id", skillId
                 ));
     }
 
     @Override
-    public Certificate updateCertificate(Long knowledgeId, Long certificateId, Certificate certificateDetails) {
-        if(!knowledgeRepository.existsById(knowledgeId))
+    public Certificate updateCertificate(Long skillId, Long certificateId, Certificate certificateDetails) {
+        if(!skillRepository.existsById(skillId))
             throw new ResourceNotFoundException(
-                    "knowledge","Id", knowledgeId
+                    "skill","Id", skillId
             );
         return certificateRepository.findById(certificateId)
                 .map(certificate -> {
@@ -58,10 +57,10 @@ public class CertificateServiceImpl implements CertificateService {
     }
 
     @Override
-    public ResponseEntity<?> deleteCertificate(Long knowledgeId, Long certificateId) {
-        if(!knowledgeRepository.existsById(knowledgeId))
+    public ResponseEntity<?> deleteCertificate(Long skillId, Long certificateId) {
+        if(!skillRepository.existsById(skillId))
             throw new ResourceNotFoundException(
-                    "knowledge","Id", knowledgeId
+                    "skill","Id", skillId
             );
         return certificateRepository.findById(certificateId)
                 .map(certificate -> {
