@@ -26,12 +26,23 @@ public class MeetingServiceImpl implements MeetingService {
     }
 
     @Override
-    public Optional<Meeting> getMeetingByIdAndOfferId(Long offerId, Long id) {
-        return meetingRepository.findMeetingByIdAndOfferId(offerId, id);
+    public List<Meeting> getAllMeetingsByPostulationId(Long postulationId) {
+        return meetingRepository.findAllByPostulationId(postulationId);
     }
 
     @Override
-    public Meeting CreateMeeting(Long offerId,Long postulationId, Meeting meetingDetails) {
+    public Meeting getMeetingByIdAndOfferId(Long offerId, Long id) {
+        if(!offerRepository.existsById(offerId))
+            throw new ResourceNotFoundException(
+                    "Offer","Id", offerId
+            );
+        return meetingRepository.findMeetingByIdAndOfferId(offerId, id) .orElseThrow(() -> new ResourceNotFoundException(
+                "Meeting", "Id", id
+        ));
+    }
+
+    @Override
+    public Meeting createMeeting(Long offerId, Long postulationId, Meeting meetingDetails) {
         return offerRepository.findById(offerId).map(offer -> {
             return postulationRepository.findById(postulationId).map(postulation -> {
                 meetingDetails.setOffer(offer);

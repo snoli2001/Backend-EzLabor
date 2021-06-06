@@ -9,5 +9,6 @@ import java.util.Optional;
 @Repository
 public interface MeetingRepository extends JpaRepository<Meeting, Long> {
     List<Meeting> findAllByOfferId(Long offerId);
+    List<Meeting> findAllByPostulationId(Long postulationId);
     Optional<Meeting> findMeetingByIdAndOfferId(Long offerId, Long id);
 }
