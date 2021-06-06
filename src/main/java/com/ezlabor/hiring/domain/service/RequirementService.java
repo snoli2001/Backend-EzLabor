@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface RequirementService {
     List<Requirement> getAllRequirementsByOfferId(Long offerId);
-    Optional<Requirement> getRequirementByIdAndOfferId(Long offerId, Long id);
+    Requirement getRequirementByIdAndOfferId(Long offerId, Long id);
     Requirement createRequirement(Long offerId, Requirement requirement);
     Requirement updateRequirement(Long offerId, Long id, Requirement requirementDetails);
     ResponseEntity<?> deleteRequirement(Long offerId, Long id);

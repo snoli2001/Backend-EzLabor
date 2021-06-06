@@ -30,8 +30,18 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Optional<Offer> getOfferByIdAndEmployerId(Long employerId, Long id) {
-        return offerRepository.findByIdAndEmployerId(employerId,id);
+    public Offer getOfferByIdAndEmployerId(Long employerId, Long id) {
+        if(!employerRepository.existsById(employerId))
+            throw new ResourceNotFoundException(
+                    "Employer","Id", employerId
+            );
+        if(!offerRepository.existsById(id))
+            throw new ResourceNotFoundException(
+                    "Offer","Id", employerId
+            );
+        return offerRepository.findByIdAndEmployerId(employerId,id).orElseThrow(() -> new ResourceNotFoundException(
+                "Offer","Id", id
+        ));
     }
 
     @Override
@@ -58,6 +68,36 @@ public class OfferServiceImpl implements OfferService {
             offer.setEndDate(offerDetails.getEndDate());
             offer.setPaymentAmount(offerDetails.getPaymentAmount());
             offer.setRequirements(offerDetails.getRequirements());
+            offer.setMonthDuration(offerDetails.getMonthDuration());
+            return offerRepository.save(offer);
+        }).orElseThrow(() -> new ResourceNotFoundException(
+                "Offer","Id", id
+        ));
+    }
+
+
+    @Override
+    public Offer activateOffer(Long employerId, Long id) {
+        if(!employerRepository.existsById(employerId))
+            throw new ResourceNotFoundException(
+                    "Employer","Id", employerId
+            );
+        return offerRepository.findById(id).map(offer -> {
+            offer.setActive(true);
+            return offerRepository.save(offer);
+        }).orElseThrow(() -> new ResourceNotFoundException(
+                "Offer","Id", id
+        ));
+    }
+
+    @Override
+    public Offer deactivateOffer(Long employerId, Long id) {
+        if(!employerRepository.existsById(employerId))
+            throw new ResourceNotFoundException(
+                    "Employer","Id", employerId
+            );
+        return offerRepository.findById(id).map(offer -> {
+            offer.setActive(false);
             return offerRepository.save(offer);
         }).orElseThrow(() -> new ResourceNotFoundException(
                 "Offer","Id", id

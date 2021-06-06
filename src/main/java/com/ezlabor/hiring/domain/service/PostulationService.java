@@ -8,10 +8,11 @@ import java.util.Optional;
 
 public interface PostulationService {
     List<Postulation> getAllPostulationsByOfferId(Long offerId);
+    List<Postulation> getAllPostulationsByFreelancerId(Long offerId);
     Optional<Postulation> getPostulationByIdAndOfferId(Long postulationId, Long id);
-    Postulation createPostulation(Long postulationId,Long freelancerId, Postulation postulation);
+    Postulation createPostulation(Long offerId,Long freelancerId, Postulation postulation);
     Postulation updatePostulation(Long postulationId, Long id, Postulation postulationDetails);
-    Postulation AcceptPostulation(Long offerId, Long id);
+    Postulation acceptPostulation(Long offerId, Long id);
     Postulation rejectPostulation(Long offerId, Long id);
-    ResponseEntity<?> deletePostulation(Long postulationId, Long id);
+    ResponseEntity<?> deletePostulation(Long offerId, Long id);
 }

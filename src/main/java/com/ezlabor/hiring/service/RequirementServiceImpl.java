@@ -24,8 +24,14 @@ public class RequirementServiceImpl implements RequirementService {
     }
 
     @Override
-    public Optional<Requirement> getRequirementByIdAndOfferId(Long offerId, Long id) {
-        return requirementRepository.findByIdAndOfferId(offerId,id);
+    public Requirement getRequirementByIdAndOfferId(Long offerId, Long id) {
+        if(!offerRepository.existsById(id))
+            throw new ResourceNotFoundException(
+                    "Offer","Id", offerId
+            );
+        return requirementRepository.findByIdAndOfferId(offerId,id).orElseThrow(() -> new ResourceNotFoundException(
+                "Requirement","Id", id
+        ));
     }
 
     @Override

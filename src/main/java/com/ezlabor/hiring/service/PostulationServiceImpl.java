@@ -26,22 +26,25 @@ public class PostulationServiceImpl implements PostulationService {
     }
 
     @Override
+    public List<Postulation> getAllPostulationsByFreelancerId(Long freelancerId) {
+        return postulationRepository.findAllByFreelancerId(freelancerId);
+    }
+
+    @Override
     public Optional<Postulation> getPostulationByIdAndOfferId(Long postulationId, Long id) {
         return postulationRepository.findByIdAndOfferId(postulationId,id);
     }
 
     @Override
     public Postulation createPostulation(Long offerId,Long freelancerId, Postulation postulation) {
-        return offerRepository.findById(offerId).map(offer -> {
-            return freelancerRepository.findById(freelancerId).map(freelancer -> {
-                postulation.setState(Postulation.PostState.UNANSWERED);
-                postulation.setOffer(offer);
-                postulation.setFreelancer(freelancer);
-                return postulationRepository.save(postulation);
-            }).orElseThrow(() -> new ResourceNotFoundException(
-                    "Freelancer", "Id", freelancerId
-            ));
+        return offerRepository.findById(offerId).map(offer -> freelancerRepository.findById(freelancerId).map(freelancer -> {
+            postulation.setState(Postulation.PostState.UNANSWERED);
+            postulation.setOffer(offer);
+            postulation.setFreelancer(freelancer);
+            return postulationRepository.save(postulation);
         }).orElseThrow(() -> new ResourceNotFoundException(
+                "Freelancer", "Id", freelancerId
+        ))).orElseThrow(() -> new ResourceNotFoundException(
                 "Offer", "Id", offerId
         ));
     }
@@ -63,7 +66,7 @@ public class PostulationServiceImpl implements PostulationService {
     }
 
     @Override
-    public Postulation AcceptPostulation(Long offerId, Long id) {
+    public Postulation acceptPostulation(Long offerId, Long id) {
         if(!offerRepository.existsById(offerId))
             throw new ResourceNotFoundException(
                     "Offer","Id", offerId

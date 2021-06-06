@@ -15,7 +15,7 @@ public class Certificate {
     @Lob
     private String certificate_url;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "knowledge_id", nullable = false)
+    @JoinColumn(name = "skill_id", nullable = false)
     @JsonIgnore
-    private Knowledge knowledge;
+    private Skill skill;
 }

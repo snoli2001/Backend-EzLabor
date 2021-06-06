@@ -1,10 +1,9 @@
-package com.ezlabor.accounts.resource.knowledge;
-import com.ezlabor.accounts.domain.model.background.Knowledge;
+package com.ezlabor.accounts.resource.Skill;
 import com.ezlabor.common.SkillLevel;
 import lombok.Data;
 
 @Data
-public class KnowledgeResource {
+public class SkillResource {
     private Long id;
     private String name;
     private String description;
