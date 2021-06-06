@@ -2,7 +2,6 @@ package com.ezlabor.locations.service;
 
 import com.ezlabor.common.exception.ResourceNotFoundException;
 import com.ezlabor.locations.domain.model.District;
-import com.ezlabor.locations.domain.model.Province;
 import com.ezlabor.locations.domain.repository.DistrictRepository;
 import com.ezlabor.locations.domain.repository.ProvinceRepository;
 import com.ezlabor.locations.domain.service.DistrictService;
@@ -10,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DistrictServiceImpl implements DistrictService {
@@ -35,11 +34,11 @@ public class DistrictServiceImpl implements DistrictService {
     }
 
     @Override
-    public District getDistrictByIdAndProvinceId(Long provinceId, Long districtId) {
-        return districtRepository.findByIdAndProvinceId(provinceId,districtId)
-                .orElseThrow(()->new ResourceNotFoundException(
-                        "Province","Id",provinceId
-                ));
+    public Optional<District> getDistrictByIdAndProvinceId(Long provinceId, Long districtId) {
+        return districtRepository.findByIdAndProvinceId(provinceId,districtId);
+                //.orElseThrow(()->new ResourceNotFoundException(
+                //        "Province","Id",provinceId
+                //));
     }
 
     @Override
