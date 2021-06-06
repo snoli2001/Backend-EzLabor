@@ -1,5 +1,7 @@
 package com.ezlabor.locations.service;
 
+import com.ezlabor.accounts.domain.model.background.Certificate;
+import com.ezlabor.accounts.domain.model.background.Knowledge;
 import com.ezlabor.locations.domain.model.District;
 import com.ezlabor.locations.domain.model.Province;
 import com.ezlabor.locations.domain.model.Region;
@@ -75,4 +77,23 @@ public class DistrictServiceImplTest {
         assertThat(foundDistricts.get(0).getProvince()).isEqualTo(province1);
         assertThat(foundDistricts.size()).isEqualTo(2);
     }
+
+    @Test
+    void whenGetDistrictByDistrictIdAndProvinceIdWithValidIdThenReturnsDistrict() {
+        //Arrange
+        Long id = 1L;
+        District district = new District();
+        district.setId(id);
+        district.setDistrictname("test");
+
+        Province province = new Province();
+        province.setId(id);
+        province.setName("asdasd");
+        when(districtRepository.findByIdAndProvinceId(id,id)).thenReturn(Optional.of(district));
+        //Act
+        Optional<District> foundDistrict = districtService.getDistrictByIdAndProvinceId(id,id);
+        //Assert
+        assertThat(foundDistrict.get().getId()).isEqualTo(id);
+    }
+
 }

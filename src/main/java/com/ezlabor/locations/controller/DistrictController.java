@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RestController
@@ -28,7 +29,8 @@ public class DistrictController {
 
     @GetMapping("/{provinceId}/district/{districtId}")
     public DistrictResource getDistrictByIdAndProvinceId(@PathVariable Long provinceId,@PathVariable Long districtId){
-        return convertToResource(districtService.getDistrictByIdAndProvinceId(provinceId,districtId));
+        Optional<District> district = districtService.getDistrictByIdAndProvinceId(districtId,provinceId);
+        return district.map(this::convertToResource).orElse(null);
     }
 
     @PostMapping("/{provinceId}/districts")
