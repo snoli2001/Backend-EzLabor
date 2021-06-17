@@ -37,5 +37,4 @@ public class SaveFreelancerResource {
     private String profession;
     @PositiveOrZero
     private Long districtId;
-    private String accountType;
 }

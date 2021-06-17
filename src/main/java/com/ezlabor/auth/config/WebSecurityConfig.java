@@ -76,6 +76,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/api/employers").permitAll()
                 .antMatchers("/api/freelancers").permitAll()
+                .antMatchers("/api/user/**").permitAll()
                 .antMatchers("/api/login/").permitAll()
                 .antMatchers("/ezLabor-crud-api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()

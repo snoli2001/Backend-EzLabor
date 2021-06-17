@@ -39,5 +39,4 @@ public class SaveEmployerResource {
     private String companyName;
     private String companyWeb;
     private String contactCompanyEmail;
-    private String accountType;
 }

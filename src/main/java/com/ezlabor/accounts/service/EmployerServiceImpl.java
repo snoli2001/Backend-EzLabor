@@ -3,6 +3,7 @@ package com.ezlabor.accounts.service;
 import com.ezlabor.accounts.domain.model.Employer;
 import com.ezlabor.accounts.domain.repository.EmployerRepository;
 import com.ezlabor.accounts.domain.service.EmployerService;
+import com.ezlabor.common.AccountType;
 import com.ezlabor.common.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,7 @@ public class EmployerServiceImpl implements EmployerService {
         if(employerRepository.findByUsername(employer.getUsername()) != null)
             return employerRepository.findByUsername(employer.getUsername());
         employer.setPassword(encoder.encode(employer.getPassword()));
+        employer.setAccountType(AccountType.EMPLOYER);
         return employerRepository.save(employer);
     }
 

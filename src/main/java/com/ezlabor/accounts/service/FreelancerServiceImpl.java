@@ -3,6 +3,7 @@ package com.ezlabor.accounts.service;
 import com.ezlabor.accounts.domain.model.Freelancer;
 import com.ezlabor.accounts.domain.repository.FreelancerRepository;
 import com.ezlabor.accounts.domain.service.FreelancerService;
+import com.ezlabor.common.AccountType;
 import com.ezlabor.common.exception.ResourceNotFoundException;
 import com.ezlabor.locations.domain.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class FreelancerServiceImpl implements FreelancerService {
         return this.districtRepository.findById(districtId).map(
                 district -> {
                     freelancer.setDistrict(district);
+                    freelancer.setAccountType(AccountType.FREELANCER);
                     freelancer.setPassword(encoder.encode(freelancer.getPassword()));
                     return freelancerRepository.save(freelancer);
                 }
