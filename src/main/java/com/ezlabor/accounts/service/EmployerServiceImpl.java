@@ -6,6 +6,7 @@ import com.ezlabor.accounts.domain.service.EmployerService;
 import com.ezlabor.common.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +17,9 @@ public class EmployerServiceImpl implements EmployerService {
     @Autowired
     private EmployerRepository employerRepository;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     @Override
     public List<Employer> getAllEmployers() {
         return employerRepository.findAll();
@@ -25,6 +29,7 @@ public class EmployerServiceImpl implements EmployerService {
     public Employer createEmployer(Employer employer) {
         if(employerRepository.findByUsername(employer.getUsername()) != null)
             return employerRepository.findByUsername(employer.getUsername());
+        employer.setPassword(encoder.encode(employer.getPassword()));
         return employerRepository.save(employer);
     }
 

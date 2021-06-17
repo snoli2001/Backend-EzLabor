@@ -1,6 +1,7 @@
 package com.ezlabor.accounts.resource.freelancer;
 
 import com.ezlabor.accounts.resource.ProfileResource;
+import com.ezlabor.locations.domain.model.District;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,5 +15,5 @@ public class FreelancerResource extends ProfileResource {
     private String phone;
     private String description;
     private String profession;
-
+    private District district;
 }

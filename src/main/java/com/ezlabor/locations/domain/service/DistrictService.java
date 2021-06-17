@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
 public interface DistrictService {
     District createDistrictByProvinceId (Long provinceId,District district);
     Optional<District> getDistrictByIdAndProvinceId(Long districtId, Long provinceId);

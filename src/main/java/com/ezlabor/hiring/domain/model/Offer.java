@@ -31,6 +31,12 @@ public class Offer extends AuditModel {
     @OneToMany(mappedBy = "offer", fetch = FetchType.LAZY, cascade =CascadeType.ALL)
     @JsonIgnore
     private List<Postulation> postulations;
+
+    @ManyToOne
+    @JoinColumn(name = "specialty_id", nullable = false, updatable = false)
+    private Specialty specialty;
+
+
     @OneToMany(mappedBy = "offer", fetch = FetchType.LAZY, cascade =CascadeType.ALL)
     @JsonIgnore
     private List<Requirement> requirements;

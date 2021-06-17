@@ -4,8 +4,10 @@ import com.ezlabor.accounts.domain.model.Freelancer;
 import com.ezlabor.accounts.domain.repository.FreelancerRepository;
 import com.ezlabor.accounts.domain.service.FreelancerService;
 import com.ezlabor.common.exception.ResourceNotFoundException;
+import com.ezlabor.locations.domain.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +17,11 @@ import java.util.Optional;
 public class FreelancerServiceImpl implements FreelancerService {
     @Autowired
     private FreelancerRepository freelancerRepository;
+    @Autowired
+    private DistrictRepository districtRepository;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     @Override
     public List<Freelancer> getAllFreelancers() {
@@ -22,10 +29,16 @@ public class FreelancerServiceImpl implements FreelancerService {
     }
 
     @Override
-    public Freelancer createFreelancer(Freelancer freelancer) {
+    public Freelancer createFreelancer(Freelancer freelancer, Long districtId) {
         if(freelancerRepository.findByUsername(freelancer.getUsername())!=null)
             return freelancerRepository.findByUsername(freelancer.getUsername());
-        return freelancerRepository.save(freelancer);
+        return this.districtRepository.findById(districtId).map(
+                district -> {
+                    freelancer.setDistrict(district);
+                    freelancer.setPassword(encoder.encode(freelancer.getPassword()));
+                    return freelancerRepository.save(freelancer);
+                }
+        ).orElseThrow(() -> new ResourceNotFoundException("District", "Id", districtId));
     }
 
     @Override

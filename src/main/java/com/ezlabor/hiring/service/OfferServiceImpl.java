@@ -5,19 +5,26 @@ import com.ezlabor.common.exception.ResourceNotFoundException;
 import com.ezlabor.hiring.domain.model.Offer;
 import com.ezlabor.hiring.domain.model.Postulation;
 import com.ezlabor.hiring.domain.repository.OfferRepository;
+import com.ezlabor.hiring.domain.repository.SpecialtyRepository;
 import com.ezlabor.hiring.domain.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
 @Service
 public class OfferServiceImpl implements OfferService {
     @Autowired
     private OfferRepository offerRepository;
     @Autowired
     private EmployerRepository employerRepository;
+
+    @Autowired
+    private SpecialtyRepository specialtyRepository;
 
     @Override
     public List<Offer> getAllOffersByEmployerId(Long employerId) {
@@ -27,6 +34,13 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<Offer> getAllOffers() {
         return offerRepository.findAll();
+    }
+
+    @Override
+    public List<Offer> getAllOffersBySpecialities(List<Long> specialitiesId) {
+        List<Offer> offerList = new ArrayList<>();
+        specialitiesId.forEach(id -> offerList.addAll(offerRepository.findAllBySpecialtyId(id)));
+        return offerList;
     }
 
     @Override
@@ -45,9 +59,12 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public Offer CreateOffer(Long employerId, Offer offer) {
+    public Offer CreateOffer(Long employerId, Offer offer, Long specialtyId) {
         return employerRepository.findById(employerId).map(employer -> {
             offer.setEmployer(employer);
+            offer.setSpecialty(specialtyRepository.findById(specialtyId).orElseThrow(() -> new ResourceNotFoundException(
+                    "Specialty", "Id", specialtyId
+            )));
             return offerRepository.save(offer);
         }) .orElseThrow(() -> new ResourceNotFoundException(
                 "Employer", "Id", employerId
