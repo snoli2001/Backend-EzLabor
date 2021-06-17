@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface FreelancerService{
     List<Freelancer> getAllFreelancers();
-    Freelancer createFreelancer(Freelancer freelancer);
+    Freelancer createFreelancer(Freelancer freelancer, Long districtId);
     Freelancer updateFreelancer(Long freelancerId, Freelancer freelancerDetails);
     ResponseEntity<?> deleteFreelancer(Long freelancerId);
     Optional<Freelancer> getFreelancerById(Long freelancerId);

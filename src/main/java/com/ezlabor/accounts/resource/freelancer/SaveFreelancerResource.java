@@ -2,10 +2,7 @@ package com.ezlabor.accounts.resource.freelancer;
 
 import lombok.Data;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Date;
 @Data
 public class SaveFreelancerResource {
@@ -38,4 +35,7 @@ public class SaveFreelancerResource {
     private String description;
     @Size(min=3,max = 20)
     private String profession;
+    @PositiveOrZero
+    private Long districtId;
+    private String accountType;
 }

@@ -1,4 +1,5 @@
 package com.ezlabor.hiring.resource.Offer;
+import com.ezlabor.hiring.domain.model.Specialty;
 import lombok.Data;
 
 import java.util.Date;
@@ -12,4 +13,5 @@ public class OfferResource {
     private Date endDate;
     private int monthDuration;
     private boolean isActive;
+    private Specialty specialty;
 }

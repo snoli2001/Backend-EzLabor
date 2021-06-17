@@ -56,7 +56,7 @@ public class FreelancersController {
     public FreelancerResource createFreelancer(@Valid @RequestBody SaveFreelancerResource resource){
         Freelancer freelancer = convertToEntity(resource);
         freelancer.setCreatedAt(new Date());
-        return convertToResource(freelancerService.createFreelancer(freelancer));
+        return convertToResource(freelancerService.createFreelancer(freelancer, resource.getDistrictId()));
     }
 
     @Operation(tags = "Freelancers")

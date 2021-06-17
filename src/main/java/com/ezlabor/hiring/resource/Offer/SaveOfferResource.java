@@ -21,4 +21,6 @@ public class SaveOfferResource {
     private int monthDuration;
     private Date startDate;
     private Date endDate;
+    @PositiveOrZero
+    private Long specialtyId;
 }
