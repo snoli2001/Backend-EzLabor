@@ -78,6 +78,16 @@
             <artifactId>springdoc-openapi-ui</artifactId>
             <version>1.4.7</version>
         </dependency>
+        <!--    auth-->
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-commons</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

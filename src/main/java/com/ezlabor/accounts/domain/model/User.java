@@ -26,5 +26,6 @@ public class User extends AuditModel {
     private String email;
     @NotNull
     private  String password;
-
+    @NotNull
+    private String accountType;
 }

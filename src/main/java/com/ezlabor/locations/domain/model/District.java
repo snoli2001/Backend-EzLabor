@@ -1,5 +1,7 @@
 package com.ezlabor.locations.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,8 +11,9 @@ public class District {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String districtname;
-    @ManyToOne(fetch = FetchType.LAZY,optional = false)
-    @JoinColumn(name = "province_id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "province_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Province province;
 
     public Long getId() {

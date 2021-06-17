@@ -65,7 +65,7 @@ public class OffersController {
     @PostMapping("/employers/{employerId}/offers")
     public OfferResource createNewOffer(@PathVariable Long employerId,@Valid @RequestBody SaveOfferResource resource){
         Offer offer = convertToEntity(resource);
-        return convertToResource(offerService.CreateOffer(employerId,offer));
+        return convertToResource(offerService.CreateOffer(employerId,offer, resource.getSpecialtyId()));
     }
 
     @Operation(summary = "Create an offer", description = "Create an offer",
