@@ -5,6 +5,7 @@ import com.ezlabor.accounts.domain.repository.FreelancerRepository;
 import com.ezlabor.accounts.domain.service.FreelancerService;
 import com.ezlabor.common.AccountType;
 import com.ezlabor.common.exception.ResourceNotFoundException;
+import com.ezlabor.locations.domain.model.District;
 import com.ezlabor.locations.domain.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,8 +19,8 @@ import java.util.Optional;
 public class FreelancerServiceImpl implements FreelancerService {
     @Autowired
     private FreelancerRepository freelancerRepository;
-    @Autowired
-    private DistrictRepository districtRepository;
+//    @Autowired
+//    private DistrictRepository districtRepository;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -30,17 +31,15 @@ public class FreelancerServiceImpl implements FreelancerService {
     }
 
     @Override
-    public Freelancer createFreelancer(Freelancer freelancer, Long districtId) {
+    public Freelancer createFreelancer(Freelancer freelancer) {
         if(freelancerRepository.findByUsername(freelancer.getUsername())!=null)
             return freelancerRepository.findByUsername(freelancer.getUsername());
-        return this.districtRepository.findById(districtId).map(
-                district -> {
-                    freelancer.setDistrict(district);
-                    freelancer.setAccountType(AccountType.FREELANCER);
-                    freelancer.setPassword(encoder.encode(freelancer.getPassword()));
-                    return freelancerRepository.save(freelancer);
-                }
-        ).orElseThrow(() -> new ResourceNotFoundException("District", "Id", districtId));
+//        District district = districtRepository.findById(districtId).orElseThrow(() -> new ResourceNotFoundException("District", "Id", districtId));
+        freelancer.setPassword(encoder.encode(freelancer.getPassword()));
+        freelancer.setAccountType(AccountType.FREELANCER);
+//        freelancer.setDistrict(district);
+        Freelancer saved = freelancerRepository.save(freelancer);
+        return saved;
     }
 
     @Override

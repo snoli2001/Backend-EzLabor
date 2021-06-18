@@ -55,8 +55,7 @@ public class FreelancersController {
     @PostMapping("/freelancers")
     public FreelancerResource createFreelancer(@Valid @RequestBody SaveFreelancerResource resource){
         Freelancer freelancer = convertToEntity(resource);
-        freelancer.setCreatedAt(new Date());
-        return convertToResource(freelancerService.createFreelancer(freelancer, resource.getDistrictId()));
+        return convertToResource(freelancerService.createFreelancer(freelancer));
     }
 
     @Operation(tags = "Freelancers")

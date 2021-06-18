@@ -30,6 +30,4 @@ public class Employer extends Profile {
     private String companyName;
     private String companyWeb;
     private String contactCompanyEmail;
-
-
 }
