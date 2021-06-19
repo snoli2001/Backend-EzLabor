@@ -78,6 +78,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/freelancers").permitAll()
                 .antMatchers("/api/user/**").permitAll()
                 .antMatchers("/api/login/").permitAll()
+                .antMatchers("/api/offers").permitAll()
+                .antMatchers("/api/postulations").permitAll()
                 .antMatchers("/ezLabor-crud-api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().authenticated();
