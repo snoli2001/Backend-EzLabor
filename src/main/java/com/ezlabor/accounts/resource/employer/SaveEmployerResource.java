@@ -33,8 +33,6 @@ public class SaveEmployerResource {
     private String personalPhone;
     private String description;
     private String companyPhone;
-    @NotNull
-    @NotBlank
     @Size(min = 2,max = 100)
     private String companyName;
     private String companyWeb;
