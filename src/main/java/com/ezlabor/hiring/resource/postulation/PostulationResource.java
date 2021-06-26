@@ -3,9 +3,10 @@ package com.ezlabor.hiring.resource.postulation;
 import com.ezlabor.accounts.domain.model.Freelancer;
 import com.ezlabor.hiring.domain.model.Offer;
 import com.ezlabor.hiring.domain.model.Postulation;
+import lombok.Data;
 
 import javax.persistence.*;
-
+@Data
 public class PostulationResource {
     private Long id;
     private float desiredPayment;

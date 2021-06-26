@@ -13,8 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -34,6 +32,13 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public List<Offer> getAllOffers() {
         return offerRepository.findAll();
+    }
+
+    @Override
+    public Offer getOfferById(Long id) {
+        return offerRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException(
+                "Offer","Id", id
+        ));
     }
 
     @Override
