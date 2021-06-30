@@ -8,10 +8,12 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.PropertyMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,16 @@ public class OffersPostulationsController {
     @GetMapping("/{offerId}/postulations")
     public List<PostulationResource> getAllOffers(@PathVariable Long offerId){
         List<Postulation> postulations = postulationService.getAllPostulationsByOfferId(offerId);
-        return postulations.stream().map(this::convertToResource).collect(Collectors.toList());
+        return postulations.stream().map((postulation -> new PostulationResource(
+                postulation.getId(),
+                postulation.getDesiredPayment(),
+                postulation.getDescription(),
+                postulation.getState(),
+                postulation.getFreelancer().getId(),
+                postulation.getFreelancer().getFirstname(),
+                postulation.getFreelancer().getLastname()
+                )))
+                .collect(Collectors.toList());
     }
 
     @Operation(summary = "Accept Postulation", description = "Accept an postulation",
@@ -67,5 +78,6 @@ public class OffersPostulationsController {
     private PostulationResource convertToResource(Postulation entity){
         return mapper.map(entity, PostulationResource.class);
     }
+
 
 }
