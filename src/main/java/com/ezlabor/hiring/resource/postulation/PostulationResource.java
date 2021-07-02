@@ -17,4 +17,7 @@ public class PostulationResource {
     private Long freelancerId;
     private String firstname;
     private String lastname;
+    private String title;
+    private String offerDescription;
+    private float paymentAmount;
 }

@@ -38,7 +38,10 @@ public class OffersPostulationsController {
                 postulation.getState(),
                 postulation.getFreelancer().getId(),
                 postulation.getFreelancer().getFirstname(),
-                postulation.getFreelancer().getLastname()
+                postulation.getFreelancer().getLastname(),
+                postulation.getOffer().getTitle(),
+                postulation.getOffer().getDescription(),
+                postulation.getOffer().getPaymentAmount()
                 )))
                 .collect(Collectors.toList());
     }
@@ -49,7 +52,19 @@ public class OffersPostulationsController {
             content = @Content(mediaType = "application/json"))})
     @PatchMapping("/{offerId}/postulations/{postulationId}/accept")
     public PostulationResource acceptPostulation(@PathVariable Long offerId,@PathVariable Long postulationId){
-        return convertToResource(postulationService.acceptPostulation(offerId, postulationId));
+        Postulation postulation = postulationService.acceptPostulation(offerId, postulationId);
+        return  new PostulationResource(
+                postulation.getId(),
+                postulation.getDesiredPayment(),
+                postulation.getDescription(),
+                postulation.getState(),
+                postulation.getFreelancer().getId(),
+                postulation.getFreelancer().getFirstname(),
+                postulation.getFreelancer().getLastname(),
+                postulation.getOffer().getTitle(),
+                postulation.getOffer().getDescription(),
+                postulation.getOffer().getPaymentAmount()
+        );
     }
 
     @Operation(summary = "Reject Postulation", description = "Reject an postulation",
@@ -58,7 +73,19 @@ public class OffersPostulationsController {
             content = @Content(mediaType = "application/json"))})
     @PatchMapping("/{offerId}/postulations/{postulationId}/reject")
     public PostulationResource rejectPostulation(@PathVariable Long offerId,@PathVariable Long postulationId){
-        return convertToResource(postulationService.rejectPostulation(offerId, postulationId));
+        Postulation postulation = postulationService.rejectPostulation(offerId, postulationId);
+        return  new PostulationResource(
+                postulation.getId(),
+                postulation.getDesiredPayment(),
+                postulation.getDescription(),
+                postulation.getState(),
+                postulation.getFreelancer().getId(),
+                postulation.getFreelancer().getFirstname(),
+                postulation.getFreelancer().getLastname(),
+                postulation.getOffer().getTitle(),
+                postulation.getOffer().getDescription(),
+                postulation.getOffer().getPaymentAmount()
+        );
     }
 
     @Operation(summary = "Delete Postulation", description = "Delete Postulation",
