@@ -35,6 +35,5 @@ public class SaveFreelancerResource {
     private String description;
     @Size(min=3,max = 20)
     private String profession;
-//    @PositiveOrZero
-//    private Long district;
+
 }

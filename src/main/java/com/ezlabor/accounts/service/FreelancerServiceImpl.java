@@ -45,16 +45,30 @@ public class FreelancerServiceImpl implements FreelancerService {
     @Override
     public Freelancer updateFreelancer(Long freelancerId, Freelancer freelancerDetails) {
         return freelancerRepository.findById(freelancerId).map(freelancer -> {
-            freelancer.setFirstname(freelancerDetails.getFirstname());
-            freelancer.setLastname(freelancerDetails.getLastname());
-            freelancer.setPhone(freelancerDetails.getPhone());
-            freelancer.setDescription(freelancerDetails.getDescription());
-            freelancer.setProfession(freelancerDetails.getProfession());
-            freelancer.setWebPage(freelancerDetails.getWebPage());
-            freelancer.setFacebookLink(freelancerDetails.getFacebookLink());
-            freelancer.setInstagramLink(freelancerDetails.getInstagramLink());
-            freelancer.setTwitterLink(freelancerDetails.getTwitterLink());
-            freelancer.setImageUrl(freelancerDetails.getImageUrl());
+            if(freelancerDetails.getPhone() != null){
+                freelancer.setPhone(freelancerDetails.getPhone());
+            }
+            if(freelancerDetails.getDescription() != null){
+                freelancer.setDescription(freelancerDetails.getDescription());
+            }
+            if(freelancerDetails.getProfession() != null){
+                freelancer.setProfession(freelancerDetails.getProfession());
+            }
+            if(freelancerDetails.getWebPage() != null){
+                freelancer.setWebPage(freelancerDetails.getWebPage());
+            }
+            if(freelancerDetails.getFacebookLink() != null){
+                freelancer.setFacebookLink(freelancerDetails.getFacebookLink());
+            }
+            if(freelancerDetails.getInstagramLink() != null){
+                freelancer.setInstagramLink(freelancerDetails.getInstagramLink());
+            }
+            if(freelancerDetails.getTwitterLink() != null){
+                freelancer.setTwitterLink(freelancerDetails.getTwitterLink());
+            }
+            if(freelancerDetails.getImageUrl() != null){
+                freelancer.setImageUrl(freelancerDetails.getImageUrl());
+            }
             return freelancerRepository.save(freelancer);
 
         }).orElseThrow(() -> new ResourceNotFoundException("Freelancer", "Id", freelancerId));
