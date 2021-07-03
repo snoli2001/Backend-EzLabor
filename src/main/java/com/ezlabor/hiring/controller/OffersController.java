@@ -113,7 +113,14 @@ public class OffersController {
     }
 
     private Offer convertToEntity(SaveOfferResource resource){
-        return mapper.map(resource, Offer.class);
+        return new Offer(null,
+                resource.getTitle(),
+                resource.getDescription(),
+                resource.getPaymentAmount(),
+                resource.getStartDate(),
+                resource.getEndDate(),
+                resource.getMonthDuration()
+                );
     }
 
     private OfferResource convertToResource(Offer entity){
