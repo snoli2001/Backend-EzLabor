@@ -60,7 +60,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public CorsConfigurationSource corsConfigurationSource() {
         final CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Collections.singletonList("http://localhost:4200"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
         configuration.setAllowCredentials(true);
         configuration.setAllowedHeaders(Arrays.asList("Origin", "Content-Type", "Accept", "Authorization"));
         final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -74,9 +74,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .authorizeRequests()
                 .and().cors().and().csrf().disable().authorizeRequests()
-                .antMatchers("/api/employers").permitAll()
-                .antMatchers("/api/freelancers").permitAll()
-                .antMatchers("/api/login/").permitAll()
+                .antMatchers("/api/employers/**").permitAll()
+                .antMatchers("/api/freelancers/**").permitAll()
+                .antMatchers("/api/user/**").permitAll()
+                .antMatchers("/api/login/**").permitAll()
+                .antMatchers("/api/offers/**").permitAll()
+                .antMatchers("/api/postulations/**").permitAll()
                 .antMatchers("/ezLabor-crud-api-docs/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
                 .anyRequest().authenticated();

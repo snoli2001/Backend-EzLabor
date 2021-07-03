@@ -1,5 +1,6 @@
 package com.ezlabor.accounts.controller;
 import com.ezlabor.accounts.resource.freelancer.FreelancerResource;
+import com.ezlabor.accounts.resource.freelancer.UpdateFreelancerResource;
 import io.swagger.v3.oas.annotations.Operation;
 import org.modelmapper.ModelMapper;
 import com.ezlabor.accounts.domain.model.Freelancer;
@@ -55,14 +56,13 @@ public class FreelancersController {
     @PostMapping("/freelancers")
     public FreelancerResource createFreelancer(@Valid @RequestBody SaveFreelancerResource resource){
         Freelancer freelancer = convertToEntity(resource);
-        freelancer.setCreatedAt(new Date());
-        return convertToResource(freelancerService.createFreelancer(freelancer, resource.getDistrictId()));
+        return convertToResource(freelancerService.createFreelancer(freelancer));
     }
 
     @Operation(tags = "Freelancers")
     @PutMapping("/freelancers/{freelancerId}")
-    public FreelancerResource updateFreelancer(@PathVariable Long freelancerId, @Valid @RequestBody SaveFreelancerResource resource){
-        Freelancer freelancer = convertToEntity(resource);
+    public FreelancerResource updateFreelancer(@PathVariable Long freelancerId, @Valid @RequestBody UpdateFreelancerResource resource){
+        Freelancer freelancer = convertUpdateResourceToEntity(resource);
         freelancer.setUpdatedAt(new Date());
         return convertToResource(freelancerService.updateFreelancer(freelancerId, freelancer));
     }
@@ -74,6 +74,10 @@ public class FreelancersController {
     }
 
     private Freelancer convertToEntity(SaveFreelancerResource resource){
+        return mapper.map(resource, Freelancer.class);
+    }
+
+    private Freelancer convertUpdateResourceToEntity(UpdateFreelancerResource resource){
         return mapper.map(resource, Freelancer.class);
     }
 

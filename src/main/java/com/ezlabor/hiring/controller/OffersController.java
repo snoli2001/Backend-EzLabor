@@ -38,6 +38,16 @@ public class OffersController {
         return offers.stream().map(this::convertToResource).collect(Collectors.toList());
     }
 
+    @Operation(summary = "Get Offer By Id", description = "Get Offer",
+            tags = "Offers")
+    @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Should retrieve an Offer",
+            content = @Content(mediaType = "application/json"))})
+    @GetMapping("/offers/{offerId}")
+    public OfferResource getOfferById(@PathVariable Long offerId){
+        Offer offer = offerService.getOfferById(offerId);
+        return convertToResource(offer);
+    }
+
     @Operation(summary = "Get Offers By EmployerId", description = "Get All Offers by employerId",
             tags = "Employer-Offers")
     @ApiResponses(value = { @ApiResponse(responseCode = "200", description = "Should retrieve all Offers by employerId",
@@ -103,7 +113,14 @@ public class OffersController {
     }
 
     private Offer convertToEntity(SaveOfferResource resource){
-        return mapper.map(resource, Offer.class);
+        return new Offer(null,
+                resource.getTitle(),
+                resource.getDescription(),
+                resource.getPaymentAmount(),
+                resource.getStartDate(),
+                resource.getEndDate(),
+                resource.getMonthDuration()
+                );
     }
 
     private OfferResource convertToResource(Offer entity){

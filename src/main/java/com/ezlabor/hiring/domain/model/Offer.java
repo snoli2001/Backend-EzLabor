@@ -3,6 +3,7 @@ package com.ezlabor.hiring.domain.model;
 import com.ezlabor.accounts.domain.model.Employer;
 import com.ezlabor.common.model.AuditModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -40,4 +41,15 @@ public class Offer extends AuditModel {
     @OneToMany(mappedBy = "offer", fetch = FetchType.LAZY, cascade =CascadeType.ALL)
     @JsonIgnore
     private List<Requirement> requirements;
+
+    public Offer(Long id, String title, String description, float paymentAmount, Date startDate, Date endDate, int monthDuration) {
+        this.id = id;
+        this.title = title;
+        this.description = description;
+        this.paymentAmount = paymentAmount;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.monthDuration = monthDuration;
+    }
+    public Offer(){}
 }

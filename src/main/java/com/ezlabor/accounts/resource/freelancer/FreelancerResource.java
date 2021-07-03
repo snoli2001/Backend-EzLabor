@@ -15,5 +15,4 @@ public class FreelancerResource extends ProfileResource {
     private String phone;
     private String description;
     private String profession;
-    private District district;
 }

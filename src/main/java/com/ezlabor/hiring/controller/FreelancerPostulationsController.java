@@ -29,7 +29,18 @@ public class FreelancerPostulationsController {
     @GetMapping("/{freelancerId}/postulations")
     public List<PostulationResource> getAllOffersByFreelancerId(@PathVariable Long freelancerId){
         List<Postulation> postulations = postulationService.getAllPostulationsByFreelancerId(freelancerId);
-        return postulations.stream().map(this::convertToResource).collect(Collectors.toList());
+        return postulations.stream().map(postulation -> (new PostulationResource(
+                postulation.getId(),
+                postulation.getDesiredPayment(),
+                postulation.getDescription(),
+                postulation.getState(),
+                postulation.getFreelancer().getId(),
+                postulation.getFreelancer().getFirstname(),
+                postulation.getFreelancer().getLastname(),
+                postulation.getOffer().getTitle(),
+                postulation.getOffer().getDescription(),
+                postulation.getOffer().getPaymentAmount()
+        ))).collect(Collectors.toList());
     }
 
     @Operation(summary = "Create Postulation", description = "Create Postulation",
@@ -39,7 +50,18 @@ public class FreelancerPostulationsController {
     @PostMapping("/{freelancerId}/offers/{offerId}/postulations")
     public PostulationResource createPostulation(@PathVariable Long freelancerId, @PathVariable Long offerId, @Valid @RequestBody SavePostulationResource resource){
         Postulation postulation = postulationService.createPostulation(offerId, freelancerId, convertToEntity(resource));
-        return convertToResource(postulation);
+        return new PostulationResource(
+                postulation.getId(),
+                postulation.getDesiredPayment(),
+                postulation.getDescription(),
+                postulation.getState(),
+                postulation.getFreelancer().getId(),
+                postulation.getFreelancer().getFirstname(),
+                postulation.getFreelancer().getLastname(),
+                postulation.getOffer().getTitle(),
+                postulation.getOffer().getDescription(),
+                postulation.getOffer().getPaymentAmount()
+        );
     }
 
 

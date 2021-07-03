@@ -1,6 +1,7 @@
 package com.ezlabor.accounts.domain.model;
 
 
+import com.ezlabor.common.AccountType;
 import com.ezlabor.common.model.AuditModel;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,5 +28,5 @@ public class User extends AuditModel {
     @NotNull
     private  String password;
     @NotNull
-    private String accountType;
+    private AccountType accountType;
 }

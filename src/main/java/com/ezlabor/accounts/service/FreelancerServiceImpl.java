@@ -3,7 +3,9 @@ package com.ezlabor.accounts.service;
 import com.ezlabor.accounts.domain.model.Freelancer;
 import com.ezlabor.accounts.domain.repository.FreelancerRepository;
 import com.ezlabor.accounts.domain.service.FreelancerService;
+import com.ezlabor.common.AccountType;
 import com.ezlabor.common.exception.ResourceNotFoundException;
+import com.ezlabor.locations.domain.model.District;
 import com.ezlabor.locations.domain.repository.DistrictRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +19,8 @@ import java.util.Optional;
 public class FreelancerServiceImpl implements FreelancerService {
     @Autowired
     private FreelancerRepository freelancerRepository;
-    @Autowired
-    private DistrictRepository districtRepository;
+//    @Autowired
+//    private DistrictRepository districtRepository;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -29,31 +31,44 @@ public class FreelancerServiceImpl implements FreelancerService {
     }
 
     @Override
-    public Freelancer createFreelancer(Freelancer freelancer, Long districtId) {
+    public Freelancer createFreelancer(Freelancer freelancer) {
         if(freelancerRepository.findByUsername(freelancer.getUsername())!=null)
             return freelancerRepository.findByUsername(freelancer.getUsername());
-        return this.districtRepository.findById(districtId).map(
-                district -> {
-                    freelancer.setDistrict(district);
-                    freelancer.setPassword(encoder.encode(freelancer.getPassword()));
-                    return freelancerRepository.save(freelancer);
-                }
-        ).orElseThrow(() -> new ResourceNotFoundException("District", "Id", districtId));
+//        District district = districtRepository.findById(districtId).orElseThrow(() -> new ResourceNotFoundException("District", "Id", districtId));
+        freelancer.setPassword(encoder.encode(freelancer.getPassword()));
+        freelancer.setAccountType(AccountType.FREELANCER);
+//        freelancer.setDistrict(district);
+        Freelancer saved = freelancerRepository.save(freelancer);
+        return saved;
     }
 
     @Override
     public Freelancer updateFreelancer(Long freelancerId, Freelancer freelancerDetails) {
         return freelancerRepository.findById(freelancerId).map(freelancer -> {
-            freelancer.setFirstname(freelancerDetails.getFirstname());
-            freelancer.setLastname(freelancerDetails.getLastname());
-            freelancer.setPhone(freelancerDetails.getPhone());
-            freelancer.setDescription(freelancerDetails.getDescription());
-            freelancer.setProfession(freelancerDetails.getProfession());
-            freelancer.setWebPage(freelancerDetails.getWebPage());
-            freelancer.setFacebookLink(freelancerDetails.getFacebookLink());
-            freelancer.setInstagramLink(freelancerDetails.getInstagramLink());
-            freelancer.setTwitterLink(freelancerDetails.getTwitterLink());
-            freelancer.setImageUrl(freelancerDetails.getImageUrl());
+            if(freelancerDetails.getPhone() != null){
+                freelancer.setPhone(freelancerDetails.getPhone());
+            }
+            if(freelancerDetails.getDescription() != null){
+                freelancer.setDescription(freelancerDetails.getDescription());
+            }
+            if(freelancerDetails.getProfession() != null){
+                freelancer.setProfession(freelancerDetails.getProfession());
+            }
+            if(freelancerDetails.getWebPage() != null){
+                freelancer.setWebPage(freelancerDetails.getWebPage());
+            }
+            if(freelancerDetails.getFacebookLink() != null){
+                freelancer.setFacebookLink(freelancerDetails.getFacebookLink());
+            }
+            if(freelancerDetails.getInstagramLink() != null){
+                freelancer.setInstagramLink(freelancerDetails.getInstagramLink());
+            }
+            if(freelancerDetails.getTwitterLink() != null){
+                freelancer.setTwitterLink(freelancerDetails.getTwitterLink());
+            }
+            if(freelancerDetails.getImageUrl() != null){
+                freelancer.setImageUrl(freelancerDetails.getImageUrl());
+            }
             return freelancerRepository.save(freelancer);
 
         }).orElseThrow(() -> new ResourceNotFoundException("Freelancer", "Id", freelancerId));

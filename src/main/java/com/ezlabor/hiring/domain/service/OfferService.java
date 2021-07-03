@@ -4,11 +4,11 @@ import com.ezlabor.hiring.domain.model.Offer;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface OfferService {
     List<Offer> getAllOffersByEmployerId(Long employerId);
     List<Offer> getAllOffers();
+    Offer getOfferById(Long id);
     List<Offer> getAllOffersBySpecialities(List<Long> specialitiesId);
     Offer activateOffer(Long employerId, Long id);
     Offer deactivateOffer(Long employerId, Long id);
