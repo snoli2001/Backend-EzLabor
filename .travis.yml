@@ -2,4 +2,6 @@ language: java
 jdk: openjdk15
 notifications:
   email: sebastian.noli@gmail.com
+install:
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
 script: mvn test
