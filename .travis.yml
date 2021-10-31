@@ -1,0 +1,4 @@
+language: java
+jdk: openjdk15
+notifications:
+  email: sebastian.noli@gmail.com

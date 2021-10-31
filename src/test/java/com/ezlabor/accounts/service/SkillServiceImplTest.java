@@ -31,8 +31,8 @@ public class SkillServiceImplTest {
     private FreelancerRepository freelancerRepository;
     @TestConfiguration
     static class SkillServiceImplTestConfiguration {
-        @Primary
-        @Bean(name = "skillServiceTest")
+
+        @Bean
         public SkillService SkillService(){ return new SkillServiceImpl(); }
     }
 

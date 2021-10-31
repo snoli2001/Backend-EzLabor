@@ -33,7 +33,6 @@ public class CertificateServiceImplTest {
     private FreelancerRepository freelancerRepository;
     @TestConfiguration
     static class CertificateServiceTestConfiguration{
-
         @Bean
         public CertificateService certificateService(){
             return new CertificateServiceImpl();

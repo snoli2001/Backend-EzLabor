@@ -3,13 +3,13 @@ package com.ezlabor.accounts.service;
 import com.ezlabor.accounts.domain.model.Employer;
 import com.ezlabor.accounts.domain.repository.EmployerRepository;
 import com.ezlabor.accounts.domain.service.EmployerService;
-import com.ezlabor.accounts.service.EmployerServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
@@ -25,6 +25,8 @@ public class EmployerServiceImplTest {
     private EmployerRepository employerRepository;
     @Autowired
     private EmployerService employerService;
+    @MockBean
+    private PasswordEncoder enconder;
 
     @TestConfiguration
     static class EmployerServiceImplTestConfiguration{

@@ -16,10 +16,10 @@ import java.util.Optional;
 @Service
 public class EmployerServiceImpl implements EmployerService {
     @Autowired
-    private EmployerRepository employerRepository;
+    private  EmployerRepository employerRepository;
 
     @Autowired
-    private PasswordEncoder encoder;
+    private  PasswordEncoder encoder;
 
     @Override
     public List<Employer> getAllEmployers() {
